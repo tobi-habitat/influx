@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  influxdb:
+    image: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=topS3cr3t!!
+      - TZ=Europe/Berlin
+
+  chronograf:
+    image: chronograf
+    command: "--influxdb-url=http://influxdb:8086 ----influxdb-username=admin --influxdb-password=topS3cr3t!!"
+    depends_on:
+      - influxdb
+    ports:
+      - "8888:8888"
+    environment:
+      - TZ=Europe/Berlin
